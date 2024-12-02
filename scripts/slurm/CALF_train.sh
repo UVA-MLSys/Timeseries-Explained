@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #SBATCH --job-name="train"
-#SBATCH --output=results/outputs/CALF_mimic_iii_train.out
+#SBATCH --output=results/outputs/CALF_traffic_train.out
 #SBATCH --partition=gpu
 #SBATCH --time=5:00:00
 #SBATCH --gres=gpu:1
-#SBATCH --mail-type=begin,end
-#SBATCH --mail-user=mi3se@virginia.edu
+#---SBATCH --mail-type=begin,end
+#---SBATCH --mail-user=mi3se@virginia.edu
 #SBATCH --mem=24GB
 
 source /etc/profile.d/modules.sh
@@ -16,17 +16,29 @@ module load cuda-toolkit cudnn-8.9.5_cuda12.x anaconda3
 conda deactivate
 conda activate ml
 
-# python run_CALF.py\
-#   --task_name long_term_forecast \
-#   --train \
-#   --root_path ./dataset/electricity/ \
-#   --data_path electricity.csv \
-#   --model CALF \
-#   --features S \
-#   --seq_len 96 \
-#   --label_len 12 \
-#   --pred_len 24 \
-#   --n_features 1 --d_model 768
+python run_CALF.py\
+  --task_name long_term_forecast \
+  --train \
+  --root_path ./dataset/electricity/ \
+  --data_path electricity.csv \
+  --model CALF \
+  --features S \
+  --seq_len 96 \
+  --label_len 12 \
+  --pred_len 24 \
+  --n_features 1 --d_model 768
+
+python run_CALF.py\
+  --task_name long_term_forecast \
+  --train \
+  --root_path ./dataset/traffic/ \
+  --data_path traffic.csv \
+  --model CALF \
+  --features S \
+  --seq_len 96 \
+  --label_len 12 \
+  --pred_len 24 \
+  --n_features 1 --d_model 768
 
 python run_CALF.py \
   --task_name classification \
