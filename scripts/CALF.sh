@@ -1,3 +1,19 @@
+# #!/usr/bin/env bash
+# #SBATCH --job-name="CALF"
+# #SBATCH --output=results/outputs/calf.out
+# #SBATCH --partition=gpu
+# #SBATCH --time=24:00:00
+# #SBATCH --gres=gpu:v100:1
+# #SBATCH --account=bii_dsc_community
+# #SBATCH --mem=32GB
+
+# source /etc/profile.d/modules.sh
+# source ~/.bashrc
+
+# module load cuda cudnn miniforge
+# conda activate ml2
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.conda/envs/ml2/lib
+
 python run_CALF.py\
   --task_name long_term_forecast \
   --train \
@@ -8,7 +24,19 @@ python run_CALF.py\
   --seq_len 96 \
   --label_len 12 \
   --pred_len 24 \
-  --n_features 1 --train_epochs 1 --itr_no 1 --d_model 768
+  --n_features 1 --d_model 768
+  
+python run_CALF.py\
+  --task_name long_term_forecast \
+  --train \
+  --root_path ./dataset/traffic/ \
+  --data_path traffic.csv \
+  --model CALF \
+  --features S \
+  --seq_len 96 \
+  --label_len 12 \
+  --pred_len 24 \
+  --n_features 1 --d_model 768
 
 python run_CALF.py \
   --task_name classification \
@@ -22,7 +50,7 @@ python run_CALF.py \
 
 python interpret_CALF.py\
   --task_name long_term_forecast \
-  --explainers feature_ablation occlusion augmented_occlusion feature_permutation integrated_gradients gradient_shap winIT gatemask wtsr\
+  --explainers integrated_gradients gradient_shap\
   --root_path ./dataset/electricity/ \
   --data_path electricity.csv \
   --model CALF \
@@ -30,11 +58,22 @@ python interpret_CALF.py\
   --seq_len 96 \
   --label_len 12 \
   --pred_len 24 \
-  --n_features 1 --d_model 768\
-  --batch_size 16
+  --n_features 1 --d_model 768
+  
+python interpret_CALF.py\
+  --task_name long_term_forecast \
+  --explainers tsr\
+  --root_path ./dataset/traffic/ \
+  --data_path traffic.csv \
+  --model CALF \
+  --features S \
+  --seq_len 96 \
+  --label_len 12 \
+  --pred_len 24 \
+  --n_features 1 --d_model 768
 
 python interpret_CALF.py \
-  --explainers feature_ablation occlusion augmented_occlusion feature_permutation integrated_gradients gradient_shap winIT gatemask wtsr \
+  --explainers integrated_gradients gradient_shap \
   --task_name classification \
   --data mimic \
   --root_path ./dataset/mimic_iii/ \

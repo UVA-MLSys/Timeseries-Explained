@@ -98,7 +98,9 @@ class TSR:
             if type(inputs) == tuple and self.args.model not in dual_input_users:
                 new_additional_forward_args = tuple([
                     input for input in inputs[1:]
-                ]) + additional_forward_args
+                ])
+                if additional_forward_args is not None:
+                    new_additional_forward_args += additional_forward_args
                 
                 # output is a tuple of length 1, since only one input is used
                 attr = self.explainer.attribute(

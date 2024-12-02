@@ -5,12 +5,14 @@ checkpoints
 **/*_TimeLLM/**/checkpoint.pth
 **/*_CALF/**/checkpoint.pth
 **/*_OFA/**/checkpoint.pth
+
 # some file sizes are too large for git
 dataset
 scratch
 *.npy
 *.sif
 *.pt
+!wte_pca_500.pt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

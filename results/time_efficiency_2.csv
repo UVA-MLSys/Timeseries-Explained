@@ -537,6 +537,15 @@ traffic,CALF,3,integrated_gradients,2024-12-02 12:42:05.727147,1:00:58.291029,CA
 traffic,CALF,1,gradient_shap,2024-12-02 12:56:05.844452,0:54:32.314179,CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4
 traffic,CALF,2,gradient_shap,2024-12-02 13:16:03.934544,0:54:22.216068,CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4
 traffic,CALF,3,gradient_shap,2024-12-02 13:34:32.296371,0:52:26.213013,CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4
+traffic,CALF,3,winIT,2024-12-02 13:53:39.605930,0:14:51.049048,CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4
+traffic,CALF,2,winIT,2024-12-02 13:53:48.059090,0:14:59.568046,CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4
+traffic,CALF,1,winIT,2024-12-02 13:53:51.944046,0:15:03.361889,CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4
+traffic,CALF,3,gatemask,2024-12-02 14:09:28.511941,0:15:48.683082,CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4
+traffic,CALF,2,gatemask,2024-12-02 14:09:53.760879,0:16:05.479830,CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4
+traffic,CALF,1,gatemask,2024-12-02 14:09:58.416653,0:16:06.254615,CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4
+traffic,CALF,3,wtsr,2024-12-02 14:25:14.859413,0:15:46.100641,CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4
+traffic,CALF,2,wtsr,2024-12-02 14:25:46.651350,0:15:52.663942,CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4
+traffic,CALF,1,wtsr,2024-12-02 14:25:53.281633,0:15:54.541493,CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4
 electricity,CALF,2,gradient_shap,2024-12-02 14:05:38.521472,0:10:44.352681,CALF_electricity_ftS_sl96_ll12_pl24_dm768_nh4
 electricity,CALF,3,integrated_gradients,2024-12-02 14:24:12.501121,0:18:31.518528,CALF_electricity_ftS_sl96_ll12_pl24_dm768_nh4
 electricity,CALF,3,gradient_shap,2024-12-02 14:34:56.218080,0:10:43.514982,CALF_electricity_ftS_sl96_ll12_pl24_dm768_nh4
