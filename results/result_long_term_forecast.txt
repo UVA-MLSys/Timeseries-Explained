@@ -621,3 +621,21 @@ flag:val, mse:0.25966, mae:0.35594, rmse: 0.50957.
 CALF_electricity_ftS_sl96_ll12_pl24_dm768_nh4  
 flag:test, mse:0.14736, mae:0.27731, rmse: 0.38388.
 
+CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4  
+flag:val, mse:0.08587, mae:0.20584, rmse: 0.29304.
+
+CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4  
+flag:test, mse:0.2322, mae:0.3053, rmse: 0.48187.
+
+CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4  
+flag:val, mse:0.086111, mae:0.20805, rmse: 0.29345.
+
+CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4  
+flag:test, mse:0.23093, mae:0.3063, rmse: 0.48055.
+
+CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4  
+flag:val, mse:0.11452, mae:0.25024, rmse: 0.33841.
+
+CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4  
+flag:test, mse:0.269, mae:0.35067, rmse: 0.51865.
+
