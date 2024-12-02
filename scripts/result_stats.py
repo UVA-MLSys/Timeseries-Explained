@@ -8,15 +8,13 @@ def reduce_df(df:pd.DataFrame):
 int_metric_map = {
     'electricity': ['mae'],
     'traffic': ['mae'],
-    'mimic_iii': ['auc'],
-    # 'Heartbeat': ['auc']
+    'mimic_iii': ['auc']
 }
 
 test_metric_map = {
     'electricity': ['mae', 'mse'],
     'traffic': ['mae', 'mse'],
-    'mimic_iii': ['auc', 'accuracy', 'f1'],
-    # 'Heartbeat': ['auc', 'accuracy', 'f1']
+    'mimic_iii': ['auc', 'accuracy', 'f1']
 }
 
 datasets = ['electricity', 'mimic_iii']
@@ -64,6 +62,12 @@ def create_result_file(root='./results'):
                         
                         for value in values:
                             area, comp, suff = value
+                            
+                            # because they are reported as drop in value
+                            if metric in ['auc', 'accuracy']:
+                                comp = 1-comp
+                                suff = 1-suff
+                            
                             results.append([
                                 dataset, attr_method, metric, 
                                 model, itr_no, area, comp, suff
@@ -106,9 +110,6 @@ int_metrics = list(set(int_metrics))
 
 result_df = result_df[result_df['metric'].isin(int_metrics)]
 
-selected = result_df['metric'].isin(['auc', 'accuracy'])
-result_df.loc[selected, ['comp', 'suff']] = 1 - result_df[selected][['comp', 'suff']]
-
 result_df['comp_rank'] = result_df.groupby(['dataset', 'metric', 'model'])['comp'].rank(ascending=False)
 result_df['suff_rank'] = result_df.groupby(['dataset', 'metric', 'model'])['suff'].rank(ascending=True)
 result_df.groupby(['dataset', 'metric', 'attr_method'])[['comp_rank', 'suff_rank']].mean().reset_index()
@@ -117,9 +118,11 @@ df = pd.concat([
     result_df.drop(columns='suff_rank').rename(columns={'comp_rank': 'rank'}), 
     result_df.drop(columns='comp_rank').rename(columns={'suff_rank': 'rank'})
 ], axis=0)
+df.to_csv('df.csv', index=False)
 
 ranks = df.groupby(['dataset', 'metric', 'attr_method'])['rank'].mean().round(1).reset_index(name='mean_rank')
 ranks['rank'] = ranks.groupby(['dataset', 'metric'])['mean_rank'].rank()
+ranks.to_csv('ranks.csv', index=False)
     
 for dataset in datasets:
     # use the first or second on
@@ -141,8 +144,6 @@ for dataset in datasets:
                 
                     df = pd.concat(dfs, axis=0)
                     df.replace([np.inf, -np.inf], np.nan, inplace=True)
-                    if metric in ['auc', 'accuracy']:
-                        df[metric_type] = 1-df[metric_type]
                     
                     score = df[metric_type].mean() 
                     print_row(score)
