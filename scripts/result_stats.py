@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os
 
 def reduce_df(df:pd.DataFrame):
     # df[df['area']==0.05]
@@ -23,8 +24,8 @@ models = ['DLinear', 'MICN', 'SegRNN', 'iTransformer', 'CALF']
 attr_methods = [
     'feature_ablation', 'augmented_occlusion', 
     'feature_permutation',
-    # 'integrated_gradients', 'gradient_shap', # 'dyna_mask',
-    'winIT', # 'tsr', 
+    'integrated_gradients', 'gradient_shap', # 'dyna_mask',
+    'winIT', 'tsr', 
     'gatemask', 
     'wtsr'
 ]
@@ -56,7 +57,12 @@ def create_result_file(root='./results'):
             for metric in int_metric_map[dataset]:
                 for model in models:
                     for itr_no in range(1, NUM_ITERATIONS+1):
-                        df = pd.read_csv(f'{root}/{dataset}_{model}/{itr_no}/{attr_method}.csv')
+                        file_path = f'{root}/{dataset}_{model}/{itr_no}/{attr_method}.csv'
+                        if os.path.exists(file_path):
+                            df = pd.read_csv(file_path)
+                        else:
+                            print(f'Error. File {file_path} does not exist. Skipping ...')
+                            continue
                         # df = reduce_df(df)
                         values = df[df['metric']==metric][['area', 'comp', 'suff']].values
                         
@@ -99,7 +105,7 @@ result_df = create_result_file()
 # result_df.round(3).to_csv('results/results.csv', index=False)
 
 result_df = result_df.groupby(
-    ['dataset', 'attr_method', 'metric', 'model', 'itr_no']
+    ['dataset', 'attr_method', 'metric', 'model']
 )[['comp', 'suff']].mean().reset_index()
 print(result_df.head(3))
 
@@ -112,18 +118,16 @@ result_df = result_df[result_df['metric'].isin(int_metrics)]
 
 result_df['comp_rank'] = result_df.groupby(['dataset', 'metric', 'model'])['comp'].rank(ascending=False)
 result_df['suff_rank'] = result_df.groupby(['dataset', 'metric', 'model'])['suff'].rank(ascending=True)
-result_df.groupby(['dataset', 'metric', 'attr_method'])[['comp_rank', 'suff_rank']].mean().reset_index()
 
 df = pd.concat([
     result_df.drop(columns='suff_rank').rename(columns={'comp_rank': 'rank'}), 
     result_df.drop(columns='comp_rank').rename(columns={'suff_rank': 'rank'})
 ], axis=0)
-df.to_csv('df.csv', index=False)
 
-ranks = df.groupby(['dataset', 'metric', 'attr_method'])['rank'].mean().round(1).reset_index(name='mean_rank')
+ranks = df.groupby(['dataset', 'metric', 'attr_method'])['rank'].mean().round(2).reset_index(name='mean_rank')
+ranks['std_rank'] = df.groupby(['dataset', 'metric', 'attr_method'])['rank'].std().round(2).values
 ranks['rank'] = ranks.groupby(['dataset', 'metric'])['mean_rank'].rank()
-ranks.to_csv('ranks.csv', index=False)
-    
+
 for dataset in datasets:
     # use the first or second on
     for metric in int_metric_map[dataset]:
@@ -134,25 +138,36 @@ for dataset in datasets:
             print(f'{short_form[attr_method]} ', end='')
             for metric_type in ['comp', 'suff']:
                 for model in models:
-                    scores = []
-                    dfs = []
-                    for itr_no in range(1, NUM_ITERATIONS+1):
-                        df = pd.read_csv(f'results/{dataset}_{model}/{itr_no}/{attr_method}.csv') 
+                    df = result_df[
+                        (result_df['dataset']==dataset) & (result_df['metric']==metric) & 
+                        (result_df['attr_method']==attr_method) & (result_df['model'] == model)
+                    ]
                     
-                        df = df[df['metric']==metric][['area', metric_type]]
-                        dfs.append(df)
-                
-                    df = pd.concat(dfs, axis=0)
-                    df.replace([np.inf, -np.inf], np.nan, inplace=True)
+                    if len(df) == 0:
+                        print_row('-')
+                        continue
+                    rank = df[f'{metric_type}_rank'].values[0]
                     
-                    score = df[metric_type].mean() 
-                    print_row(score)
+                    score = df[metric_type].values[0]
+                    if dataset == 'mimic_iii':
+                        score = f'{score:.2f}'
+                    else:
+                        score = f'{score:.1f}'
+                        
+                    if rank == 1:
+                        print_row(r'\textbf{' + score + '}')
+                    elif rank == 2:
+                        print_row(r'\underline{' + score + '}')
+                    else:
+                        print_row(score)
+                        
             
-            mean_rank, rank = ranks[
-                (ranks['dataset']==dataset) & (ranks['metric']==metric) & (ranks['attr_method']==attr_method)
-            ][['mean_rank', 'rank']].values[0]
+            mean_rank, std_rank, rank = ranks[
+                (ranks['dataset']==dataset) & (ranks['metric']==metric) 
+                & (ranks['attr_method']==attr_method)
+            ][['mean_rank', 'std_rank', 'rank']].values[0]
             
-            print_row(f'{rank:.0f}({mean_rank})')
+            print_row(f'{rank:.0f}({mean_rank} \pm {std_rank})')
             print('\\\\')
         print('\\hline\n')
 
