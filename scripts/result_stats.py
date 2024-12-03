@@ -18,7 +18,7 @@ test_metric_map = {
     'mimic_iii': ['auc', 'accuracy', 'f1']
 }
 
-datasets = ['electricity', 'mimic_iii']
+datasets = ['electricity', 'traffic', 'mimic_iii']
 models = ['DLinear', 'MICN', 'SegRNN', 'iTransformer', 'CALF']
 
 attr_methods = [
@@ -102,7 +102,7 @@ for dataset in datasets:
         
 # this section finds the ranks for each method 
 result_df = create_result_file()
-# result_df.round(3).to_csv('results/results.csv', index=False)
+result_df.round(3).to_csv('results/results.csv', index=False)
 
 result_df = result_df.groupby(
     ['dataset', 'attr_method', 'metric', 'model']
@@ -125,7 +125,7 @@ df = pd.concat([
 ], axis=0)
 
 ranks = df.groupby(['dataset', 'metric', 'attr_method'])['rank'].mean().round(2).reset_index(name='mean_rank')
-ranks['std_rank'] = df.groupby(['dataset', 'metric', 'attr_method'])['rank'].std().round(2).values
+ranks['std_rank'] = df.groupby(['dataset', 'metric', 'attr_method'])['rank'].std().round(1).values
 ranks['rank'] = ranks.groupby(['dataset', 'metric'])['mean_rank'].rank()
 
 for dataset in datasets:
@@ -167,7 +167,7 @@ for dataset in datasets:
                 & (ranks['attr_method']==attr_method)
             ][['mean_rank', 'std_rank', 'rank']].values[0]
             
-            print_row(f'{rank:.0f}({mean_rank} \pm {std_rank})')
+            print_row(f'{rank:.0f}({mean_rank} $ \pm $ {std_rank})')
             print('\\\\')
         print('\\hline\n')
 
