@@ -572,3 +572,12 @@ traffic,CALF,1,extremal_mask,2024-12-03 23:57:01.464861,0:14:45.565032,CALF_traf
 mimic_iii,CALF,1,extremal_mask,2024-12-04 00:36:08.582614,0:38:39.760414,CALF_mimic_iii_ftMS_sl48_ll48_pl0_dm768_nh4
 mimic_iii,CALF,2,extremal_mask,2024-12-04 00:36:13.438178,0:39:04.463946,CALF_mimic_iii_ftMS_sl48_ll48_pl0_dm768_nh4
 mimic_iii,CALF,3,extremal_mask,2024-12-04 00:36:14.097345,0:39:04.778743,CALF_mimic_iii_ftMS_sl48_ll48_pl0_dm768_nh4
+electricity,CALF,2,dyna_mask,2024-12-04 08:43:36.876473,0:17:17.764725,CALF_electricity_ftS_sl96_ll12_pl24_dm768_nh4
+electricity,CALF,3,dyna_mask,2024-12-04 08:43:46.235815,0:17:27.592070,CALF_electricity_ftS_sl96_ll12_pl24_dm768_nh4
+electricity,CALF,1,dyna_mask,2024-12-04 08:46:23.432281,0:20:08.503292,CALF_electricity_ftS_sl96_ll12_pl24_dm768_nh4
+traffic,CALF,3,dyna_mask,2024-12-04 08:55:50.408682,0:11:36.040150,CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4
+traffic,CALF,2,dyna_mask,2024-12-04 08:55:51.417164,0:11:39.634293,CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4
+traffic,CALF,1,dyna_mask,2024-12-04 09:00:11.392176,0:13:22.953987,CALF_traffic_ftS_sl96_ll12_pl24_dm768_nh4
+mimic_iii,CALF,3,dyna_mask,2024-12-04 09:22:17.200907,0:25:49.005921,CALF_mimic_iii_ftMS_sl48_ll48_pl0_dm768_nh4
+mimic_iii,CALF,2,dyna_mask,2024-12-04 09:22:40.642313,0:26:12.531972,CALF_mimic_iii_ftMS_sl48_ll48_pl0_dm768_nh4
+mimic_iii,CALF,1,dyna_mask,2024-12-04 09:26:35.831008,0:25:58.921301,CALF_mimic_iii_ftMS_sl48_ll48_pl0_dm768_nh4

@@ -8,6 +8,9 @@
 #---SBATCH --mail-user=mi3se@virginia.edu
 #SBATCH --mem=16GB
 
+# Run this to submit this job
+## sbatch --array=1-3 scripts/slurm/CALF_interpret.sh
+
 source /etc/profile.d/modules.sh
 source ~/.bashrc
 
@@ -16,6 +19,7 @@ module load miniforge
 conda activate ml
 
 explainers=("feature_ablation" "occlusion" "augmented_occlusion" "feature_permutation" "integrated_gradients" "gradient_shap" "dyna_mask" "extremal_mask" "winIT" "wtsr" "gatemask" "tsr")
+
 function interpret {
   echo "Running $1-th job"
 
