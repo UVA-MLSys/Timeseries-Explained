@@ -24,7 +24,8 @@ models = ['DLinear', 'MICN', 'SegRNN', 'iTransformer', 'CALF']
 attr_methods = [
     'feature_ablation', 'augmented_occlusion', 
     'feature_permutation',
-    'integrated_gradients', 'gradient_shap', # 'dyna_mask',
+    'integrated_gradients', 'gradient_shap', 
+    # 'dyna_mask', 'extremal_mask',
     'winIT', 'tsr', 
     'gatemask', 
     'wtsr'
@@ -41,7 +42,8 @@ short_form = {
     'gradient_shap': 'GS',
     'integrated_gradients': 'IG',
     'dyna_mask': 'DM',
-    'gatemask': 'ContraLSP'
+    'gatemask': 'ContraLSP',
+    'extremal_mask': 'EM'
 }
 NUM_ITERATIONS = 3
 
