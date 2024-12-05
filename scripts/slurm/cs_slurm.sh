@@ -5,8 +5,6 @@
 #SBATCH --time=5:00:00
 #SBATCH --gres=gpu:1
 #---SBATCH --nodelist=lynx01
-#SBATCH --mail-type=begin,end
-#SBATCH --mail-user=mi3se@virginia.edu
 #SBATCH --mem=24GB
 
 # https://www.cs.virginia.edu/wiki/doku.php?id=compute_slurm

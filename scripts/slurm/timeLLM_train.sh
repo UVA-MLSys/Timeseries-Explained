@@ -6,7 +6,7 @@
 #SBATCH --gres=gpu:1
 #---SBATCH --nodelist=lynx01
 #SBATCH --mail-type=begin,end
-#SBATCH --mail-user=mi3se@virginia.edu
+#---SBATCH --mail-user=email
 #SBATCH --mem=32GB
 
 source /etc/profile.d/modules.sh

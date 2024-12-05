@@ -4,8 +4,6 @@
 #SBATCH --partition=gpu
 #SBATCH --time=24:00:00
 #SBATCH --gres=gpu:1
-#---SBATCH --mail-type=begin,end
-#---SBATCH --mail-user=mi3se@virginia.edu
 #SBATCH --mem=16GB
 
 # Run this to submit this job
