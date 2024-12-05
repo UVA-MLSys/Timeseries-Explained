@@ -25,7 +25,8 @@ attr_methods = [
     'feature_ablation', 'augmented_occlusion', 
     'feature_permutation',
     'integrated_gradients', 'gradient_shap', 
-    # 'dyna_mask', 'extremal_mask',
+    'dyna_mask', 
+    'extremal_mask',
     'winIT', 'tsr', 
     'gatemask', 
     'wtsr'
