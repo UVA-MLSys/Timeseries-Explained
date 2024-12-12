@@ -2,6 +2,19 @@
 
 Interpreting the model's behavior is important in understanding decision-making in practice. However, explaining complex time series forecasting models faces challenges due to temporal dependencies between subsequent time steps and the varying importance of input features over time. Many time series forecasting models use input context with a look-back window for better prediction performance. However, the existing studies (1) do not consider the temporal dependencies among the feature vectors in the input window and (2) separately consider the time dimension that the feature dimension when calculating the importance scores. In this work, we propose a novel **Windowed Temporal Saliency Rescaling** method to address these issues. 
 
+## Citation
+
+Find our paper on arxiv at https://arxiv.org/pdf/2412.04532. Please cite the following if you use our work.
+
+```
+@article{islam2024wintsr,
+  title={WinTSR: A Windowed Temporal Saliency Rescaling Method for Interpreting Time Series Deep Learning Models},
+  author={Islam, Md Khairul and Fox, Judy},
+  journal={arXiv preprint arXiv:2412.04532},
+  year={2024}
+}
+```
+
 ## Core Libraries
 
 The following libraries are used as a core in this framework.
